@@ -2,8 +2,6 @@
 //  StreakLearningApp.swift
 //  StreakLearning
 //
-//  Created by Ruba Alghamdi on 28/04/1447 AH.
-//
 
 import SwiftUI
 
@@ -11,7 +9,25 @@ import SwiftUI
 struct StreakLearningApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootRouterView()
         }
     }
 }
+
+private struct RootRouterView: View {
+    @State private var currentGoal: LearningGoal? = GoalManager.shared.loadCurrentGoal()
+
+    var body: some View {
+        Group {
+            if let goal = currentGoal {
+                MainView(learningTopic: goal.topic, selectedDuration: goal.duration)
+            } else {
+                ContentView()
+            }
+        }
+        .onAppear {
+            currentGoal = GoalManager.shared.loadCurrentGoal()
+        }
+    }
+}
+
