@@ -562,7 +562,7 @@ struct MonthYearPicker: View {
         .onChange(of: tempMonth) { _, _ in writeBack() }
         .onChange(of: tempYear) { _, _ in writeBack() }
     }
-c
+
     private func monthName(for month: Int) -> String {
         let symbols = calendar.monthSymbols
         let idx = max(1, min(12, month)) - 1
